@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col px-5">
+            <h4 class=" my-4 text-primary">Leave Applications</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Leave Type</th>
+                        <th>Dates</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leave in leaves %}
+                    <tr>
+                        <td>{{ leave.employee.employee_fname }} {{ leave.employee.employee_lname }}</td>
+                        <td>{{ leave.leave_type }}</td>
+                        <td>{{ leave.start_date }} to {{ leave.end_date }}</td>
+                        <td>{{ leave.reason }}</td>
+                        <td>{{ leave.status }}</td>
+                        <td>
+                            {% if leave.status == 'Pending' %}
+                            <a href="{{ url_for('approve_leave', leave_id=leave.leave_id) }}" class="btn btn-success btn-sm">Approve</a>
+                            <a href="{{ url_for('reject_leave', leave_id=leave.leave_id) }}" class="btn btn-danger btn-sm">Reject</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock body %}

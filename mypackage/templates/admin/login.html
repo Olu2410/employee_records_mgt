@@ -1,0 +1,79 @@
+{% extends "admin/base.html" %}
+
+{% block head %}
+<title>Admin Login</title>
+<style>
+    /* .pagebg{
+        background: linear-gradient(rgb(134, 133, 133),rgb(8, 27, 69));
+    } */
+    .pagebg {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    min-height: 100vh;
+}
+
+.bg-white.shadow {
+    background-color: #fff;
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.bg-white.shadow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+</style>
+    {% endblock head %}
+    
+    {% block body %}
+
+        <div class="min-vh-100 d-flex justify-content-center align-items-center pagebg">
+            <div class="col-md-6 col-lg-4 p-4 bg-white shadow rounded-3 border border-1">
+        
+                {% set msg = get_flashed_messages(with_categories=true) %}
+                {% if msg %}
+                    {% for cat, message in msg %}
+                        <div class="alert alert-{{ 'danger' if cat == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+        
+                <h4 class="mb-4 text-center">🔐 Admin Login</h4>
+        
+                <form method="POST" action="{{ url_for('admin_login') }}" novalidate>
+                    {{ loginform.csrf_token() }}
+        
+                    <div class="mb-3">
+                        {{ loginform.username.label(class_="form-label") }}
+                        {{ loginform.username(class_="form-control border-primary") }}
+                        {% if loginform.username.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in loginform.username.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+        
+                    <div class="mb-3">
+                        {{ loginform.password.label(class_="form-label") }}
+                        {{ loginform.password(class_="form-control border-primary") }}
+                        {% if loginform.password.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in loginform.password.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+        
+                    <div class="d-grid mt-4">
+                        {{ loginform.login(class_="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        {% endblock body %}

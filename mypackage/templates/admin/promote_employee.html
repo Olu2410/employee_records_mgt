@@ -1,0 +1,66 @@
+{% extends "admin/base.html" %}
+
+    {% block body %}
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-4 text-primary">Promote Employee</h4>
+                        <form method="POST" action="{{ url_for('promote_employee') }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Employee Email</label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter employee's email" required>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label for="designation" class="form-label">New Designation</label>
+                                <select name="designation_id" id="designation" class="form-select" required>
+                                    <option value="">Select Designation</option>
+                                    {% for d in designations %}
+                                        <option value="{{ d.designation_id }}">{{ d.designation }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+    
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="grade_level" class="form-label">Grade Level</label>
+                                    <input type="number" name="grade_level" id="grade_level" class="form-control" placeholder="e.g. 12" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="step" class="form-label">Step</label>
+                                    <input type="number" name="step" id="step" class="form-control" placeholder="e.g. 2">
+                                </div>
+                            </div>
+    
+                            <div class="mb-3">
+                                <label for="dept_id" class="form-label">Department</label>
+                                <select name="dept_id" id="dept_id" class="form-select" required>
+                                    <option value="">Select Department</option>
+                                    {% for dept in departments %}
+                                        <option value="{{ dept.dept_id }}">{{ dept.department }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+    
+                            <div class="mb-4">
+                                <label for="date_promoted" class="form-label">Date Promoted</label>
+                                <input type="date" name="date_promoted" id="date_promoted" class="form-control" required>
+                            </div>
+    
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Promote Employee</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endblock body %}

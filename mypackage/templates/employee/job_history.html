@@ -1,0 +1,56 @@
+{% extends "employee/base.html" %}
+
+{% block body %}
+
+<div class="row mb-5">
+    <div class="col px-5 mt-4">
+        <h3>Job History</h3>
+
+{% if job_history %}
+<table class="table table-striped mt-4 mb-5">
+    <thead>
+        <tr>
+            <th>S/N</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Grade Level</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in job_history %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ record.designation.designation }}</td>
+            <td>
+                {% if record.end_date %}
+                    {{ record.department.department }}
+                {% else %}
+                    <strong>{{ record.department.department }} (Present)</strong>
+                {% endif %}
+            </td>
+            
+
+            <td>{{ record.grade_level }}</td>
+            <td>{{ record.start_date.strftime('%Y-%m-%d') }}</td>
+            <td>
+                {% if record.end_date %}
+                    {{ record.end_date.strftime('%Y-%m-%d') }}
+                {% else %}
+                    Present
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>No job history available.</p>
+{% endif %}
+    </div>
+</div>
+
+
+
+{% endblock body %}

@@ -1,0 +1,31 @@
+{% extends "employee/base.html" %}
+
+{% block body %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 mt-5 ">
+        <div class="card shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <h4 class="text-center mb-4">Upload Profile Picture</h4>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div>
+                        {{ dpform.photo.label}}
+                        {% for error in dpform.photo.errors %}
+                        <span> {{ error }} </span>
+                        {% endfor %}
+                        {{ dpform.photo(class_="form-control noround border-dark mb-3")}}
+                    </div>
+                    <div>
+                        {{ dpform.csrf_token }}
+                        {{ dpform.uploadbtn(class_="btn btn-danger noround") }}
+                        <button type="button" onclick="document.location.href='/employee/dashboard/' ">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+

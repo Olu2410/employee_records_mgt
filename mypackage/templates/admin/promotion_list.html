@@ -1,0 +1,50 @@
+
+{% extends "admin/base.html" %}
+
+    {% block body %}
+
+    <div class="row mt-4 px-5">
+        <div class="col">
+          <h2 class="text-primary">Promotion List - {{ year }}</h2>
+        </div>
+      </div>
+
+      <div class="row mt-3 px-5">
+        <div class="col-4">
+            <form method="get" action="{{ url_for('promotion_list') }}">
+              <label>Select Year:</label>
+              <input type="number" name="year" value="{{ year }}" class="form-control">
+              <button type="submit" class="btn btn-info my-3">Filter</button>
+            </form>
+        </div>
+      </div>
+
+    <div class="row px-5">
+        <div class="col">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>File No</th>
+                <th>Email</th>
+                <th>Promotion Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for emp in employees_due %}
+              <tr>
+                <td>{{ loop.index }} </td>
+                <td>{{ emp.employee_fname }} {{ emp.employee_lname }}</td>
+                <td>{{ emp.employee_file_No }}</td>
+                <td>{{ emp.employee_email }}</td>
+                <td>{{ emp.promotion_due_date.strftime('%d %B, %Y') }}</td>
+              </tr>
+              {% else %}
+              <tr><td colspan="4">No employees due for promotion in {{ year }}.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+{% endblock body %}

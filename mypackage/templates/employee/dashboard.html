@@ -1,0 +1,106 @@
+{% extends "employee/base.html" %}
+
+{% block head %}
+    <title>{{ deets.employee_fname }}'s Profile</title>
+{% endblock head %}
+
+{% block body %}
+
+<div class="container mt-4">
+    {% set message = get_flashed_messages(with_categories=True) %}
+    {% for cat,msg in message %}
+    <p class="alert alert-{{cat}}"> {{msg}} </p>
+    {% endfor %}
+    <div class="row">
+      <!-- Left Sidebar -->
+      <div class="col-md-3 text-center">
+    
+{#        <!-- <img src="/static/uploads/{{ deets.employee_dp }}" width="200" alt="Employee picture" style="border-radius: 50%;"> -->#}
+        <img src="{{ url_for('static', filename='uploads/' ~ deets.employee_dp) }}" class="img-thumbnail border" alt="Employee picture" width="200">
+        <h4>{{ deets.employee_fname }} {{ deets.employee_lname }}</h4>
+        <p><i>{{ latest_job.designation.designation }}</i></p>
+        <p><strong>At work for:</strong> {{ work_duration }}</p>
+  
+        <div class="bg-secondary text-white p-2 mt-3">
+          <div>ATTENDANCE: 0/28</div>
+          <div>LEAVES: {{ total_leave_days }} /30 days</div>
+          <div>AWARDS: 0</div>
+        </div>
+  
+        <!-- Birthdays -->
+        <div class="mt-3">
+          <h5>🎉 Birthdays</h5>
+          {% for b in birthdays_today %}
+            <p>{{ b.employee_fname }} {{ b.employee_lname }} has a birthday today</p>
+          {% else %}
+            <p>No birthdays today</p>
+          {% endfor %}
+        </div>
+      </div>
+  
+      <!-- Main Panel -->
+      <div class="col-md-9">
+        <div class="row">
+          <!-- Personal Details -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-info text-white">Personal Details</div>
+              <div class="card-body">
+                <p><strong>Name:</strong> {{ deets.employee_fname }} {{ deets.employee_lname }}</p>
+                <p><strong>Date of Birth:</strong> {{ deets.employee_dob.strftime('%d-%b-%Y') }}</p>
+                <p><strong>Gender:</strong> {{ deets.gender|capitalize() }}</p>
+                <p><strong>Email:</strong> {{ deets.employee_email }}</p>
+                <p><strong>Phone:</strong> {{ deets.phone }}</p>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Employment Details -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-info text-white">Employment Details</div>
+              <div class="card-body">
+                <p><strong>Employee ID:</strong> {{ deets.employee_file_No }}</p>
+                <p><strong>Designation:</strong> {{ latest_job.designation.designation }}</p>
+                <p><strong>Grade Level:</strong> {{ latest_job.grade_level }}</p>
+                <p><strong>Department:</strong> {{ latest_job.department.department }}</p>
+                <p><strong>Qualification:</strong> {{ deets.qualification|capitalize() }}</p>
+                <p><strong>Date Employed:</strong> {{ deets.date_employed.strftime('%d-%b-%Y') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Holidays & Notice -->
+        <div class="row mt-4">
+          <!-- Notice Board -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-info text-white">Notice Board</div>
+              <div class="card-body">
+                <h3><strong>Your Promotion Due Date:</strong> {{ deets.promotion_due_date.strftime('%d %B, %Y') if deets.promotion_due_date else 'No Notice' }}</h3>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Upcoming Holidays -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-info text-white">Upcoming Holidays</div>
+              <div class="card-body">
+                {% for h in upcoming_holidays %}
+                  <p><strong>{{ h.name }}</strong> - {{ h.date.strftime('%d %b %Y') }}</p>
+                {% else %}
+                  <p>No upcoming holidays</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% endblock body %}
+
+

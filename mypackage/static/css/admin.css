@@ -1,0 +1,90 @@
+/* Admin CSS */
+/* General styles for the admin dashboard */
+body {
+  overflow-x: hidden;
+}
+
+#sidebar {
+  width: 250px;
+  background-color: grey;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  transition: left 0.3s ease;
+}
+
+#sidebar.mobile-hidden {
+  left: -250px;
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1040;
+}
+
+#overlay.show {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  #sidebar {
+    left: 0 !important;
+  }
+
+  #overlay {
+    display: none !important;
+  }
+
+  #main-content {
+    margin-left: 250px;
+  }
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 10px 15px;
+  color: black;
+  text-decoration: none;
+}
+
+.sidebar-nav a:hover {
+  background-color: #e2e6ea;
+}
+
+.box {
+  background: rgb(3, 120, 238);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.box i {
+  font-size: 24px;
+  color: white;
+}
+
+.employee img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.employee-list {
+  margin-top: 30px;
+}

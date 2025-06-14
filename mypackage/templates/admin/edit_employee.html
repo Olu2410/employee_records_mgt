@@ -1,0 +1,121 @@
+ {% extends "admin/base.html" %} 
+
+    {% block head %}
+    <title>DS Add Employee</title>
+    {% endblock head %}
+
+
+    {% block body %} 
+    
+    <div class="container">
+        <a href="{{ url_for('view_employee', id=employee.employee_id) }}" class="btn btn-secondary btn-sm mb-5">
+            <i class="fa-solid fa-circle-left"></i> back</a>
+        <h4 class="mb-4 text-primary">Edit Employee Details</h4>
+        <form method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="lname" class="form-label">Last Name</label>
+                    <input type="text" name="lname" id="lname" value="{{ employee.employee_lname }}" class="form-control" placeholder="Lastname">
+                </div>
+    
+                <div class="col-md-4">
+                    <label for="fname" class="form-label">First Name</label>
+                    <input type="text" name="fname" id="fname" value="{{ employee.employee_fname }}" class="form-control" placeholder="Firstname">
+                </div>
+    
+                <div class="col-md-4">
+                    <label for="othername" class="form-label">Other Name</label>
+                    <input type="text" name="othername" id="othername" value="{{ employee.employee_othername if employee.employee_othername else '' }}" class="form-control" placeholder="Othername">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="fileno" class="form-label">File Number</label>
+                    <input type="text" name="fileno" id="fileno" value="{{ employee.employee_file_No | upper() }}" class="form-control" placeholder="File Number">
+                </div>
+    
+                <div class="col-md-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" value="{{ employee.employee_email }}" class="form-control" placeholder="Email">
+                </div>
+
+                <div class="col-md-4">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" name="phone" id="phone" value="{{ employee.phone }}" class="form-control" placeholder="Phone Number">
+                </div>
+    
+                <div class="col-md-4">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" name="dob" id="dob" value="{{ employee.employee_dob }}" class="form-control">
+                </div>
+    
+                <div class="col-md-4">
+                    <label for="dateEmployed" class="form-label">Date Employed</label>
+                    <input type="date" name="dateEmployed" id="dateEmployed" value="{{ employee.date_employed }}" class="form-control">
+                </div>
+    
+                <div class="col-md-4">
+                    <label class="form-label d-block">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="gender_male" value="male" {% if employee.gender == 'male' %} checked {% endif %}>
+                        <label class="form-check-label" for="gender_male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="gender_female" value="female" {% if employee.gender == 'female' %} checked {% endif %}>
+                        <label class="form-check-label" for="gender_female">Female</label>
+                    </div>
+                </div>
+    
+                <div class="col-md-6">
+                    <label for="state" class="form-label">State of Deployment</label>
+                    <select name="state" id="state" class="form-select">
+                        <option value="">Select State</option>
+                        {% for state in states %}
+                            <option value="{{ state.state_id }}" {% if state.state_id == employee.stateof_originid %} selected {% endif %}>
+                                {{ state.state_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+    
+                <div class="col-md-6">
+                    <label for="lga" class="form-label">LGA</label>
+                    <select name="lga" id="lga" class="form-select">
+                        <option value="">Select the LGA</option>
+                        {% for lga in lgas %}
+                            <option value="{{ lga.lga_id }}" {% if lga.lga_id == employee.station %} selected {% endif %}>
+                                {{ lga.lga_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="dept" class="form-label">Department</label>
+                    <select name="dept" id="dept" class="form-select mb-2">
+                        <option value="">Select Department</option>
+                        {% for dept in departments %}
+                            <option value="{{ dept.dept_id }}" {% if dept.dept_id  == latest_job.department_id %} selected {% endif %}>{{ dept.department }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+    
+                <div class="col-md-6">
+                    <label for="qualification" class="form-label">Highest Qualification</label>
+                    <select name="qualification" id="qualification" class="form-select">
+                        <option value="">Select Qualification</option>
+                        <option value="phd" {% if employee.qualification == 'phd' %} selected {% endif %}>PhD</option>
+                        <option value="msc" {% if employee.qualification == 'msc' %} selected {% endif %}>MSc</option>
+                        <option value="bsc" {% if employee.qualification == 'bsc' %} selected {% endif %}>BSc</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary w-100">Update Employee Record</button>
+            </div>
+        </form>
+    </div>
+    
+{% endblock body %}
+

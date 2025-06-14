@@ -1,0 +1,135 @@
+
+{% extends "employee/base.html" %} 
+
+
+    {% block body %}
+
+<!-- BANNER SECTION -->
+
+        <div class="row">
+            <div class="col p-0 header">
+                <div class="overlay">
+                    <div class="ms-3 p-5 overlay-text">
+                        <h3 class="text-white pt-5">Innovative IT Solutions for a Digital Future</h3>
+                        <p>Transform your ideas into powerful, scalable, and user-friendly software solutions. <br>
+                            We specialize in custom software development, web & mobile apps, <br> and enterprise solutions
+                            tailored to your business needs.</p>
+                        <p class="para"><i class="text-danger fa-solid fa-rocket"></i> Custom Software |  <i class="text-danger fa-solid fa-globe"></i> Web & Mobile Apps | <i class="text-danger fa-solid fa-bolt"></i> Expert Support</p>
+                        
+                        <p>Let's Build the Future Together!</p>
+                        <p class="mt-5"><a href="#contact"> <span> <i class="fa-solid fa-arrow-right"></i></span> Get Started</a></p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+<!-- OUR SERVICES -->
+        <div class="row mt-4" id="services">
+            <div class="col text-center mt-5">
+                <h3 class="section-h3 mb-3">What We DO</h3>
+                <p>We craft cutting-edge software solutions tailored to your business needs. <br>
+                    From custom development to seamless integrations, we help you innovate and grow.</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col d-flex justify-content-center">
+                <div class="service">
+                    <h5>Custom Software Development</h5>
+                </div>
+                <div class="service">
+                    <h5>Web & Mobile App Development</h5>
+                </div>
+                <div class="service">
+                    <h5>Cloud Solutions & DevOps</h5>
+                </div>
+                <div class="service">
+                    <h5>Software Maintenance & Support</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-center service-bottom-col">
+                <p>Transform your vision into reality with our expert team!</p>
+                <p class="mt-3"><a href="#contact"> <span> <i class="fa-solid fa-arrow-right"></i></span> Get Started</a></p>
+            </div>
+        </div>
+    
+     <!-- ------Portfolio------->
+     <div id="portfolio">
+        <div class="container">
+            <h3 class="sub-title text-center">Some of our Work</h3>
+            <div class="work-list">
+                <div class="work">
+                    <img src="/static/assets/payment_app.jpg" alt="">
+                    <div class="layer">
+                        <h3>Payment App</h3>
+                        <p> Design of a user friendly App to make online payments with ease.
+                        </p>
+                        <a href=""><i class="fa-solid fa-arrow-up-right-from-square"></i></a> 
+                    </div>
+                </div>
+                <div class="work">
+                    <img src="/static/assets/screenshot.png" alt="">
+                    <div class="layer">
+                        <h3>React Router Project</h3>
+                        <p>App to connect you with your loved ones and great talents around the world.
+                        </p>
+                        <a href="https://space-psi-gray.vercel.app/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a> 
+                    </div>
+                </div>
+                <div class="work">
+                    <img id="img.ecommerce" src="/static/assets/ecommerce-website-builder.jpg" alt="">
+                    <div class="layer">
+                        <h3>Online Shopping App</h3>
+                        <p>E-Commercer App built on MERN-stack.
+                        </p>
+                        <a href="https://project-ecommerce-indol.vercel.app/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a> 
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    
+    <!-- CONTACT SECTION -->
+
+		<div class="row mt-5 p-3 contact-me" id="contact">
+            <div class="col-md-6  d-flex justify-content-center align-item-center">
+                <div class=" contact-left">
+                    <h3 class="section-h3">Contact Us</h3>
+                    <p><i class="fa-solid fa-envelope"> </i> olumuyiwa69@yahoo.com</p>
+                    <p><i class="fa-solid fa-phone"> </i>+234 810 6967 6097</p>
+                    <div class="social-icons">
+                        <a class="me-4" href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        <a class="me-4" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a class="me-4 text-dark" href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a class="me-4 text-danger" href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                {% set msg = get_flashed_messages(with_categories=True) %}
+                {% if msg %}
+                    {% for cat, message in msg %}
+                    {% if cat == 'success' %}
+                    <span class="alert alert-success"> {{ message }} </span>
+                    {% endif %}
+                    {% if cat == 'failed' %}
+                    <span class="alert alert-danger"> {{ message }} </span>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class=" contact-right">
+                    <form action="/contact/" method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input class="form-control mb-3" type="text" name="name" placeholder="Please type your name" required>
+                        <input class="form-control mb-3" type="email" name="email" placeholder="Your email" required>
+                        <textarea class="form-control mb-3" name="message" rows="6" placeholder="Your message here" required></textarea>
+                        <input type="submit" class="btn btn-primary col-4 mb-3" value="Send">
+                    </form>
+                </div>
+            </div>
+		</div>
+        {% endblock body %}
+

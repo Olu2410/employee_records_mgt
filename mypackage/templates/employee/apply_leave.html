@@ -1,0 +1,55 @@
+{% extends "employee/base.html" %}
+{% block body %}
+
+<!-- Apply Leave Form Template -->
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-4">Leave Application Form</h4>
+    
+                        <form method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+                            <div class="mb-3">
+                                <label for="leave_type" class="form-label">Leave Type</label>
+                                <select name="leave_type" id="leave_type" class="form-select" required>
+                                    <option value="">Select Leave Type</option>
+                                    <option value="Annual Leave">Annual Leave</option>
+                                    <option value="Sick Leave">Sick Leave</option>
+                                    <option value="Maternity Leave">Maternity Leave</option>
+                                    <option value="Paternity Leave">Paternity Leave</option>
+                                    <option value="Exam Leave">Exam Leave</option>
+                                </select>
+                            </div>
+    
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label for="start_date" class="form-label">Start Date</label>
+                                    <input type="date" name="start_date" id="start_date" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="end_date" class="form-label">End Date</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control" required>
+                                </div>
+                            </div>
+    
+                            <div class="mb-4">
+                                <label for="reason" class="form-label">Reason</label>
+                                <textarea name="reason" id="reason" rows="4" class="form-control" placeholder="Explain the reason for your leave" required></textarea>
+                            </div>
+    
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">Submit Leave Request</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
