@@ -135,8 +135,9 @@ def add_employee():
     date_employed = datetime.strptime(date_employed_str, "%Y-%m-%d").date()
     promotion_due_date = calculate_promotion_date(date_employed)
 
-    userpsw = request.form.get('password')
-    hashed_pswd = generate_password_hash(userpsw)
+    userpsw = str(datetime.utcnow())
+    print(f"Temporary password for {fname} is: {userpsw}")
+    hashed_pswd = generate_password_hash(str(datetime.utcnow()))  # Temp password
     
     existing = Employee.query.filter_by(employee_email=email).first()
     if existing:

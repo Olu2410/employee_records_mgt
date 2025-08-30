@@ -1,34 +1,133 @@
-
 {% extends "employee/base.html" %} 
 
     {% block head %}
-    <title>DSE Staff Portal</title>
+    <title>DevStudio Staff Portal</title>
+    <style>
+        .portal-hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .login-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-top: -50px;
+            background: white;
+        }
+        
+        .login-header {
+            background: var(--secondary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .form-floating {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            padding: 16px;
+            height: auto;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .btn-login {
+            background: var(--secondary);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-login:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .admin-link {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .admin-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--secondary);
+            font-size: 24px;
+        }
+    </style>
     {% endblock head %}
 
     {% block body %}
-
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
-                <h2 class="fw-bold">Welcome to the Staff Portal</h2>
-                <p class="text-muted">Login to access your profile and important staff tools.</p>
-                <p class="text-muted">If you are not registered, please contact the administrator.</p>
-                <a href="{{ url_for('admin_login') }}" class="btn btn-outline-secondary mt-2">Are you an Admin? Login here</a>
+    <div class="portal-hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">DevStudio Staff Portal</h1>
+                    <p class="lead mb-4">Access your profile, manage your tasks, and connect with your team</p>
+                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-shield-check me-2"></i>
+                            <span>Secure Login</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-clock me-2"></i>
+                            <span>24/7 Access</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-mobile-screen me-2"></i>
+                            <span>Mobile Friendly</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    
+    </div>
+
+    <div class="container py-5">
         {% set msg = get_flashed_messages(with_categories=True) %}
         {% if msg %}
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-6">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 {% for cat, message in msg %}
                     {% if cat == 'success' %}
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fa-solid fa-circle-check me-2"></i>
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                     {% elif cat == 'failed' %}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fa-solid fa-circle-exclamation me-2"></i>
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
@@ -37,20 +136,23 @@
             </div>
         </div>
         {% endif %}
-    
+        
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body p-4">
-                        <h4 class="mb-4 text-center">Employee Login</h4>
+            <div class="col-md-8">
+                <div class="login-card">
+                    <div class="login-header">
+                        <h3 class="mb-0">Employee Login</h3>
+                    </div>
+                    <div class="login-body">
                         <form method="post" action="{{ url_for('employee_login') }}" novalidate>
                             {{ loginform.csrf_token() }}
                             
-                            <div class="form-floating mb-3">
-                                {{ loginform.email(class_="form-control", id="email", placeholder="Email") }}
+                            <div class="form-floating mb-4">
+                                {{ loginform.email(class_="form-control", id="email", placeholder="name@example.com") }}
                                 {{ loginform.email.label(class_="form-label", for="email") }}
                                 {% if loginform.email.errors %}
-                                <div class="text-danger small">
+                                <div class="text-danger small mt-2">
+                                    <i class="fa-solid fa-circle-exclamation me-1"></i>
                                     {% for error in loginform.email.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -58,11 +160,12 @@
                                 {% endif %}
                             </div>
     
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-4">
                                 {{ loginform.password(class_="form-control", id="password", placeholder="Password") }}
                                 {{ loginform.password.label(class_="form-label", for="password") }}
                                 {% if loginform.password.errors %}
-                                <div class="text-danger small">
+                                <div class="text-danger small mt-2">
+                                    <i class="fa-solid fa-circle-exclamation me-1"></i>
                                     {% for error in loginform.password.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -70,14 +173,50 @@
                                 {% endif %}
                             </div>
     
-                            <div class="d-grid">
-                                {{ loginform.login(class_="btn btn-primary btn-lg") }}
+                            <div class="d-grid mb-4">
+                                {{ loginform.login(class_="btn btn-login btn-lg") }}
+                            </div>
+                            
+                            <div class="text-center">
+                                <p class="mb-0">Not registered? Please contact the administrator.</p>
+                                <a href="{{ url_for('admin_login') }}" class="admin-link">
+                                    <i class="fa-solid fa-user-shield me-1"></i>Admin Login
+                                </a>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <h4>Leave Management</h4>
+                    <p class="text-muted">Request and track your time off with our easy-to-use system</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h4>Documents</h4>
+                    <p class="text-muted">Access your important documents and records anytime</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <h4>Profile Management</h4>
+                    <p class="text-muted">Update your personal information and preferences</p>
+                </div>
+            </div>
+        </div>
     </div>
-    
-        {% endblock body %}
+    {% endblock body %}
